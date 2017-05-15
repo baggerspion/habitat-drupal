@@ -3,12 +3,17 @@
 exec 2>&1
 
 # Prepare Drupal
-cd {{pkg.path}}
+cd {{pkg.path}}/drupal
 drush -y site-install standard \
     --db-url="mysql://{{bind.database.first.cfg.username}}:{{bind.database.first.cfg.password}}@{{bind.database.first.sys.ip}}/{{cfg.drupal.db_name}}" \
     --site-name={{cfg.drupal.site_name}} \
     --account-name={{cfg.drupal.account_name}} \
     --account-pass={{cfg.drupal.account_password}}
+
+# Now drop Drupal in the correct location
+cp -r {{pkg.path}}/drupal/* {{pkg.svc_data_path}}
+chmod +x {{pkg.svc_data_path}}
+chown -R hab:hab {{pkg.svc_data_path}}
 
 # Copy the nginx config into position
 cp -r {{pkg.svc_config_path}}/nginx.conf \
