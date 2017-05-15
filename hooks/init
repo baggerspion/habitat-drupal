@@ -5,7 +5,7 @@ exec 2>&1
 # Prepare Drupal
 cd {{pkg.path}}
 drush -y site-install standard \
-    --db-url="mysql://{{bind.database.first.cfg.username}}:{{bind.database.first.cfg.password}}@{{bind.database.first.cfg.bind}}/{{cfg.drupal.db_name}}" \
+    --db-url="mysql://{{bind.database.first.cfg.username}}:{{bind.database.first.cfg.password}}@{{bind.database.first.sys.ip}}/{{cfg.drupal.db_name}}" \
     --site-name={{cfg.drupal.site_name}} \
     --account-name={{cfg.drupal.account_name}} \
     --account-pass={{cfg.drupal.account_password}}
